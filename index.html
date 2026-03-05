@@ -32,7 +32,7 @@ body {
 /* ===== HEADER ZE ZDJĘCIEM ===== */
 .header {
     height: 260px;
-    background-image: url('images/logo.jpg'); /* <-- tu wstaw nazwę swojego zdjęcia */
+    background-image: url('logo.jpg'); /* <-- tu wstaw nazwę swojego zdjęcia */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -62,7 +62,7 @@ body {
     width: 180px;
     height: 180px;
 
-    background: white url('images/logo.jpg') no-repeat center center;
+    background: white url('logo.jpg') no-repeat center center;
     
     border-radius: 50%;
     flex-shrink: 0;
@@ -243,6 +243,53 @@ body {
 }
 
 </style>
+
+
+<!-- Firebase SDK -->
+<script type="module">
+  // Importuj Firebase
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.1/firebase-app.js";
+  import { getFirestore, collection, addDoc, getDocs, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.6.1/firebase-firestore.js";
+
+  // Twoja konfiguracja projektu z Firebase (znajdziesz w Project Settings -> SDK setup)
+  const firebaseConfig = {
+  apiKey: "AIzaSyDrLL-gkg8s8JA1Wa01ofbgpV14rgEZXEk",
+  authDomain: "przystanek-mowa.firebaseapp.com",
+  projectId: "przystanek-mowa",
+  storageBucket: "przystanek-mowa.firebasestorage.app",
+  messagingSenderId: "191623945669",
+  appId: "1:191623945669:web:7dc191de39c5e97c63bfac",
+  measurementId: "G-R0DTNKW72G"
+};
+
+  // Inicjalizacja Firebase
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // Funkcja dodawania komentarza
+  window.addComment = async () => {
+    const input = document.getElementById("comment-input");
+    if (input.value.trim() === "") return;
+    await addDoc(collection(db, "comments"), { text: input.value, created: new Date() });
+    input.value = "";
+  };
+
+  // Funkcja pobierania komentarzy w czasie rzeczywistym
+  const commentsList = document.getElementById("comments-list");
+  const q = query(collection(db, "comments"), orderBy("created", "desc"));
+  onSnapshot(q, (snapshot) => {
+    commentsList.innerHTML = "";
+    snapshot.forEach(doc => {
+      const div = document.createElement("div");
+      div.textContent = doc.data().text;
+      div.style.padding = "5px 0";
+      div.style.borderBottom = "1px solid #ccc";
+      commentsList.appendChild(div);
+    });
+  });
+</script>
+
+
 </head>
 
 
@@ -274,12 +321,12 @@ body {
 
     <div class="carousel-container">
         <div class="carousel-track">
-            <div class="carousel-item"><img src="images/zdj1.jpeg" alt="Zdjęcie 1"></div>
-            <div class="carousel-item"><img src="images/zdj2.jpeg" alt="Zdjęcie 2"></div>
-            <div class="carousel-item"><img src="images/zdj1.jpeg" alt="Zdjęcie 3"></div>
-            <div class="carousel-item"><img src="images/zdj2.jpeg" alt="Zdjęcie 4"></div>
-            <div class="carousel-item"><img src="images/zdj1.jpeg" alt="Zdjęcie 4"></div>
-            <div class="carousel-item"><img src="images/zdj2.jpeg" alt="Zdjęcie 4"></div>
+            <div class="carousel-item"><img src="zdj1.jpeg" alt="Zdjęcie 1"></div>
+            <div class="carousel-item"><img src="zdj2.jpeg" alt="Zdjęcie 2"></div>
+            <div class="carousel-item"><img src="zdj1.jpeg" alt="Zdjęcie 3"></div>
+            <div class="carousel-item"><img src="zdj2.jpeg" alt="Zdjęcie 4"></div>
+            <div class="carousel-item"><img src="zdj1.jpeg" alt="Zdjęcie 4"></div>
+            <div class="carousel-item"><img src="zdj2.jpeg" alt="Zdjęcie 4"></div>
             
         </div>
         <button class="carousel-button prev"></button>
@@ -319,15 +366,23 @@ body {
         </iframe>
     </div>
 
+
+
     <div class="line-section">Opinie i komentarze</div>
+    <div style="max-width:600px; margin: 50px auto;">
+  <h2>Komentarze</h2>
+  <input id="comment-input" type="text" placeholder="Napisz komentarz..." style="width:80%; padding:8px;"/>
+  <button onclick="addComment()" style="padding:8px 12px;">Wyślij</button>
+  <div id="comments-list" style="margin-top:20px; border-top:1px solid #ccc;"></div>
+</div>
 
 <div id="giscus-comments"></div>
 
 <script src="https://giscus.app/client.js"
-        data-repo="matyldeq/przystanek-mowa2"
-        data-repo-id="R_kgDORff1VA"
-        data-category="[ENTER CATEGORY NAME HERE]"
-        data-category-id="[ENTER CATEGORY ID HERE]"
+        data-repo="matyldeq/przystanek-mowa"
+        data-repo-id="R_kgDORfehJg"
+        data-category="Announcements"
+        data-category-id="DIC_kwDORfehJs4C3w8w"
         data-mapping="pathname"
         data-strict="0"
         data-reactions-enabled="1"
