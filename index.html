@@ -244,36 +244,7 @@ body {
 
 </style>
 
-<script type="module">
-  // Importy modułów Firebase (CDN)
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
-  import { getFirestore, collection, addDoc, getDocs, onSnapshot } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyDrLL-gkg8s8JA1Wa01ofbgpV14rgEZXEk",
-    authDomain: "przystanek-mowa.firebaseapp.com",
-    projectId: "przystanek-mowa",
-    storageBucket: "przystanek-mowa.appspot.com",
-    messagingSenderId: "191623945669",
-    appId: "1:191623945669:web:7dc191de39c5e97c63bfac",
-    measurementId: "G-R0DTNKW72G"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-
-  // przykład: pobieranie komentarzy na żywo
-  const commentsCol = collection(db, "comments");
-  onSnapshot(commentsCol, snapshot => {
-    const commentsList = document.getElementById("comments-list");
-    commentsList.innerHTML = "";
-    snapshot.forEach(doc => {
-      const div = document.createElement("div");
-      div.textContent = doc.data().text;
-      commentsList.appendChild(div);
-    });
-  });
-</script>
 
 </head>
 
@@ -356,57 +327,16 @@ body {
     <div class="line-section">Opinie i komentarze</div>
     <div style="max-width:600px; margin: 50px auto;">
   <h2>Komentarze</h2>
-  <input id="comment-input" type="text" placeholder="Napisz komentarz..." style="width:80%; padding:8px;"/>
-  <button onclick="addComment()" style="padding:8px 12px;">Wyślij</button>
-
-    
-    
-    <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
-  import { getFirestore, collection, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyDrLL-gkg8s8JA1Wa01ofbgpV14rgEZXEk",
-    authDomain: "przystanek-mowa.firebaseapp.com",
-    projectId: "przystanek-mowa",
-    storageBucket: "przystanek-mowa.appspot.com",
-    messagingSenderId: "191623945669",
-    appId: "1:191623945669:web:7dc191de39c5e97c63bfac",
-    measurementId: "G-R0DTNKW72G"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-
-  const commentsCol = collection(db, "comments");
-
-  // Wyświetlanie komentarzy na żywo
-  onSnapshot(commentsCol, snapshot => {
-    const commentsList = document.getElementById("comments-list");
-    commentsList.innerHTML = "";
-    snapshot.forEach(doc => {
-      const div = document.createElement("div");
-      div.textContent = doc.data().text;
-      commentsList.appendChild(div);
-    });
-  });
-
-  // Funkcja dodawania komentarza
-  window.addComment = async () => {
-    const input = document.getElementById("comment-input");
-    const text = input.value.trim();
-    if(!text) return;
-    await addDoc(commentsCol, { text });
-    input.value = "";
-  };
-</script>
+  
+<input id="comment-input" type="text" placeholder="Napisz komentarz..." style="width:80%; padding:8px;"/>
+<button id="send-comment" style="padding:8px 12px;">Wyślij</button>
 
 
 
-
-  <div id="comments-list" style="margin-top:20px; border-top:1px solid #ccc;"></div>
+<div id="comments-list" style="margin-top:20px; border-top:1px solid #ccc;"></div>
 </div>
 
+<!--  GITHUB COMMENTS
 <div id="giscus-comments"></div>
 
 <script src="https://giscus.app/client.js"
@@ -425,7 +355,7 @@ body {
         async>
 </script>
 </div>
-
+-->
 
 
 <script>
@@ -462,13 +392,70 @@ window.addEventListener('resize', updateCarousel);
 updateCarousel();
 </script>
 
-<script>
-document.getElementById("send-comment").addEventListener("click", async () => {
-  const text = document.getElementById("comment-input").value;
-  if(text.trim() === "") return;
-  await addDoc(commentsCol, { text });
-  document.getElementById("comment-input").value = "";
-});
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAYYMkUfZv1JcLDHKtkHwdmN_IASfhW8do",
+  authDomain: "przystanekmowa-f41e7.firebaseapp.com",
+  projectId: "przystanekmowa-f41e7",
+  storageBucket: "przystanekmowa-f41e7.firebasestorage.app",
+  messagingSenderId: "424641822129",
+  appId: "1:424641822129:web:9c5f90f5036e77041d9190",
+  measurementId: "G-49PSJGLS0R"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+const commentsCol = collection(db, "comments");
+
+async function loadComments() {
+
+  const q = query(commentsCol, orderBy("date", "desc"));
+  const snapshot = await getDocs(q);
+
+  const container = document.getElementById("comments-list");
+  container.innerHTML = "";
+
+  snapshot.forEach(doc => {
+
+    const data = doc.data();
+
+    const div = document.createElement("div");
+    div.style.padding = "10px";
+    div.style.borderBottom = "1px solid #eee";
+
+    div.innerText = data.text;
+
+    container.appendChild(div);
+
+  });
+}
+
+async function addComment() {
+
+  const input = document.getElementById("comment-input");
+  const text = input.value.trim();
+
+  if(text === "") return;
+
+  await addDoc(commentsCol, {
+    text: text,
+    date: Date.now()
+  });
+
+  input.value = "";
+
+  loadComments();
+}
+
+document.getElementById("send-comment").addEventListener("click", addComment);
+
+loadComments();
+
 </script>
 
 </body>
