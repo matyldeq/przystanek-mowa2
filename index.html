@@ -80,27 +80,30 @@ body {
     top: 10px;
 }
 
+    
 @media (max-width: 600px) {
     .brand {
-        flex-direction: column;       /* logo nad tytułem */
-        align-items: left;          /* wyśrodkowanie poziome */
-        left: 50%;                    /* środek ekranu */
-        transform: translateX(-50%);  /* faktyczne wyśrodkowanie */
+        position: absolute;           /* lub relative jeśli wewnątrz .container */
+        width: 100%;                  /* zajmuje całą szerokość */
+        left: 50%;
+        transform: translateX(-50%);  /* wyśrodkowanie poziome */
         bottom: 300px;                /* ta sama wysokość co desktop */
-        gap: 10px;                    /* mniejsza przerwa między logo a tytułem */
+        flex-direction: column;       /* logo nad tytułem */
+        align-items: center;          /* wyśrodkowanie elementów w kolumnie */
+        gap: 10px;                    /* mniejszy odstęp między logo a tytułem */
     }
 
     .logo-circle {
-        width: 140px;                 /* mniejsze logo */
+        width: 140px;
         height: 140px;
     }
 
     .title {
-        font-size: 36px;              /* mniejszy tekst na telefonie */
+        font-size: 36px;
         top: 0;
-        text-align: center;           /* wyśrodkowanie tytułu */
+        text-align: center;
     }
-
+}
 
 /* ===== CONTENT ===== */
 .container {
