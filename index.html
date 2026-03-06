@@ -81,7 +81,27 @@ body {
     top: 10px;
 }
 
+/* ===== Mobilne urządzenie ===== */
+@media (max-width: 600px) {
+    .brand {
+        flex-direction: column; /* ustaw logo i tytuł pionowo */
+        align-items: center;    /* wyśrodkuj poziomo */
+        left: 50%;              /* przesunięcie środka kontenera do środka ekranu */
+        transform: translateX(-50%); /* faktyczne wyśrodkowanie */
+        bottom: 300px;           /* ta sama wysokość co desktop */
+        gap: 10px;               /* mniejsza przerwa między logo a tytułem */
+    }
 
+    .title {
+        font-size: 36px;         /* mniejszy tekst na telefonie */
+        top: 0;                  /* usuń przesunięcie w górę */
+    }
+
+    .logo-circle {
+        width: 140px;            /* mniejsze logo na telefonie */
+        height: 140px;
+    }
+}
 
 
 /* ===== CONTENT ===== */
