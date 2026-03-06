@@ -32,7 +32,7 @@ body {
 /* ===== HEADER ZE ZDJĘCIEM ===== */
 .header {
     height: 260px;
-    background-image: url('logo.jpg'); /* <-- tu wstaw nazwę swojego zdjęcia */
+    background-image: url('images/logo.jpg'); /* <-- tu wstaw nazwę swojego zdjęcia */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -62,7 +62,7 @@ body {
     width: 180px;
     height: 180px;
 
-    background: white url('logo.jpg') no-repeat center center;
+    background: white url('images/logo.jpg') no-repeat center center;
     
     border-radius: 50%;
     flex-shrink: 0;
@@ -122,7 +122,18 @@ body {
     margin-top: 40px;
 }
 
-
+.line-section2 {
+    letter-spacing: 1.2px;
+    padding-top: 80px;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+    color: #256bc5;
+    font-weight: 800;
+    font-size: 20px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    padding-bottom: 0px;
+}
 
 
 /* ===== BUTTONY (SPIS TREŚCI) ===== */
@@ -242,6 +253,78 @@ body {
     border: 0;
 }
 
+
+/* KOMENTARZE */
+#comments-section {
+    max-width: 600px;
+    margin: 0px auto 20px auto; /* góra 50px, dół 20px */
+}
+
+.pole_imie, .pole_kom {
+    padding: 8px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    color: #256bc5;
+    background: white;
+    font-weight: 700;
+}
+
+.pole_imie {
+    width: 120px; /* stała szerokość pola na imię */
+}
+
+.pole_kom {
+    flex: 1; /* zajmuje pozostałą przestrzeń */
+}
+
+.button_send {
+    padding:8px 12px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #256bc5;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: 0.3s;
+}
+
+.button_send:hover {
+    background-color: #f9d033;
+    color: white;
+}
+
+/* Lista komentarzy */
+.komentarze {
+    max-width: 600px;        /* ograniczenie szerokości mapy */
+    border-radius: 12px;
+    border: 0;
+    margin: 0 auto; 
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* odstęp między komentarzami */
+    max-height: 400px; /* opcjonalnie, żeby lista nie była zbyt długa */
+    overflow-y: auto; /* scroll, jeśli za dużo komentarzy */
+    
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* Pojedynczy komentarz */
+.komentarze div {
+    padding: 8px 12px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    border: 1px solid #eee;
+    font-size: 14px;
+    color: #444;
+    word-wrap: break-word; /* długie słowa łamią linię */
+}
+
 </style>
 
 
@@ -269,20 +352,23 @@ body {
         Oferuję specjalistyczną terapię logopedyczną i neurologopedyczną dla dzieci oraz młodzieży z trudnościami w zakresie mowy, komunikacji i funkcji orofacjalnych. Pracuję m.in. z pacjentami z opóźnionym rozwojem mowy, zaburzeniami ze spektrum autyzmu, niedosłuchem, mutyzmem wybiórczym oraz niepełnosprawnością intelektualną w stopniu lekkim. Specjalizuję się w indywidualnym doborze metod terapeutycznych, dostosowanych do wieku, możliwości oraz specyfiki trudności pacjenta. W zależności od potrzeb stosuję m.in. elektrostymulację, kinezjotaping, masaż logopedyczny, terapię miofunkcjonalną, elementy terapii behawioralnej oraz terapię ręki. W pracy stawiam na kompleksowe podejście, łącząc oddziaływania usprawniające funkcje prymarne (oddech, połykanie, napięcie mięśniowe) z rozwijaniem kompetencji językowych i komunikacyjnych.
     </div>
 
+
+
     <!-- SPIS TREŚCI -->
     <a href="#o-mnie" class="nav-button">O mnie</a>
     <a href="#doswiadczenie" class="nav-button">Doświadczenie</a>
+    <a href="#opinieikomentarze" class="nav-button">Opinie i komentarze</a>
     <a href="#kontakt" class="nav-button">Kontakt</a>
 
 
     <div class="carousel-container">
         <div class="carousel-track">
-            <div class="carousel-item"><img src="zdj1.jpeg" alt="Zdjęcie 1"></div>
-            <div class="carousel-item"><img src="zdj2.jpeg" alt="Zdjęcie 2"></div>
-            <div class="carousel-item"><img src="zdj1.jpeg" alt="Zdjęcie 3"></div>
-            <div class="carousel-item"><img src="zdj2.jpeg" alt="Zdjęcie 4"></div>
-            <div class="carousel-item"><img src="zdj1.jpeg" alt="Zdjęcie 4"></div>
-            <div class="carousel-item"><img src="zdj2.jpeg" alt="Zdjęcie 4"></div>
+            <div class="carousel-item"><img src="images/zdj1.jpeg" alt="Zdjęcie 1"></div>
+            <div class="carousel-item"><img src="images/zdj2.jpeg" alt="Zdjęcie 2"></div>
+            <div class="carousel-item"><img src="images/zdj1.jpeg" alt="Zdjęcie 3"></div>
+            <div class="carousel-item"><img src="images/zdj2.jpeg" alt="Zdjęcie 4"></div>
+            <div class="carousel-item"><img src="images/zdj1.jpeg" alt="Zdjęcie 4"></div>
+            <div class="carousel-item"><img src="images/zdj2.jpeg" alt="Zdjęcie 4"></div>
             
         </div>
         <button class="carousel-button prev"></button>
@@ -304,6 +390,30 @@ body {
         W tym miejscu opisz swoje doświadczenie zawodowe, odbyte szkolenia, kursy, miejsca pracy oraz dodatkowe kwalifikacje.
     </div>
 
+    <div> 
+
+    <!-- komentarze -->
+    <div class="line-section" id="opinieikomentarze">Opinie i komentarze</div>
+    
+    <div id="comments-section">
+    
+    <!-- lista komentarzy -->
+        <div class="komentarze" id="comments-list" 
+            class="komentarze" id="comments-list" 
+            style="padding-top:0px; margin-top:15px; margin-bottom:15px;">
+        </div>
+
+    <!-- pola do wpisania komentarza -->
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <input id="name-input" type="text" 
+                class="pole_imie" placeholder="Imię..." />
+            <input id="comment-input" type="text" 
+                class="pole_kom" placeholder="Napisz komentarz..." style="flex:1;" />
+            <button id="send-comment" 
+                class="button_send">Wyślij</button>
+        </div>
+    </div>   
+
     <div id="kontakt" class="line-section">Kontakt</div>
     <div class="text">
         Telefon: xxx xxx xxx <br>
@@ -323,39 +433,13 @@ body {
     </div>
 
 
-    <!-- komentarze -->
-    <div class="line-section">Opinie i komentarze</div>
-    <div style="max-width:600px; margin: 50px auto;">
-  <h2>Komentarze</h2>
-  
-<input id="comment-input" type="text" placeholder="Napisz komentarz..." style="width:80%; padding:8px;"/>
-<button id="send-comment" style="padding:8px 12px;">Wyślij</button>
-
-
-
-<div id="comments-list" style="margin-top:20px; border-top:1px solid #ccc;"></div>
+    
+    
 </div>
 
-<!--  GITHUB COMMENTS
-<div id="giscus-comments"></div>
 
-<script src="https://giscus.app/client.js"
-        data-repo="matyldeq/przystanek-mowa"
-        data-repo-id="R_kgDORfehJg"
-        data-category="Announcements"
-        data-category-id="DIC_kwDORfehJs4C3w8w"
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="bottom"
-        data-theme="preferred_color_scheme"
-        data-lang="pl"
-        crossorigin="anonymous"
-        async>
-</script>
-</div>
--->
+
+
 
 
 <script>
@@ -391,6 +475,11 @@ prevButton.addEventListener('click', () => {
 window.addEventListener('resize', updateCarousel);
 updateCarousel();
 </script>
+
+
+
+
+
 
 <script type="module">
 
@@ -428,7 +517,7 @@ async function loadComments() {
     div.style.padding = "10px";
     div.style.borderBottom = "1px solid #eee";
 
-    div.innerText = data.text;
+    div.innerText =  data.name + ": " + data.text;
 
     container.appendChild(div);
 
@@ -436,26 +525,31 @@ async function loadComments() {
 }
 
 async function addComment() {
+  const nameInput = document.getElementById("name-input");
+  const commentInput = document.getElementById("comment-input");
 
-  const input = document.getElementById("comment-input");
-  const text = input.value.trim();
+  const name = nameInput.value.trim() || "Anonim";
+  const text = commentInput.value.trim();
 
   if(text === "") return;
 
   await addDoc(commentsCol, {
+    name: name,
     text: text,
     date: Date.now()
   });
 
-  input.value = "";
+  commentInput.value = "";
+  nameInput.value = "";
 
   loadComments();
 }
 
+// **LINIA PODŁĄCZA PRZYCISK DO FUNKCJI**
 document.getElementById("send-comment").addEventListener("click", addComment);
 
+// ładujemy komentarze przy starcie
 loadComments();
-
 </script>
 
 </body>
