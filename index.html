@@ -61,7 +61,7 @@ body {
     width: 180px;
     height: 180px;
 
-    background: white url('logo.jpg') no-repeat center center;
+    background: white url('images/logo.jpg') no-repeat center center;
     
     border-radius: 50%;
     flex-shrink: 0;
@@ -81,16 +81,15 @@ body {
 }
 
     
+
 @media (max-width: 600px) {
     .brand {
-        position: absolute;           /* lub relative jeśli wewnątrz .container */
-        width: 100%;                  /* zajmuje całą szerokość */
-        left: 50%;
-        transform: translateX(-50%);  /* wyśrodkowanie poziome */
-        bottom: 300px;                /* ta sama wysokość co desktop */
         flex-direction: column;       /* logo nad tytułem */
-        align-items: center;          /* wyśrodkowanie elementów w kolumnie */
-        gap: 10px;                    /* mniejszy odstęp między logo a tytułem */
+        align-items: center;          /* wyśrodkowanie poziome */
+        left: 0%;                    /* środek ekranu */
+        transform: translateX(-50%);  /* faktyczne wyśrodkowanie */
+        bottom: 300px;                /* ta sama wysokość co desktop */
+        gap: 10px;                    /* mniejsza przerwa między logo a tytułem */
     }
 
     .logo-circle {
